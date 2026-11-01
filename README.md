@@ -45,7 +45,7 @@ This hook catches mistakes, not attacks. Script files, inline Python, base64 and
 
 This hook is the sample from one chapter of a manual for non-developers who run a live server with Claude Code as their whole staff: roles, memory, verification, alerts, cost control, more hooks and recovery.
 
-The manual: https://deskof0ne.gumroad.com/l/rponee. It costs 39 USD. This hook works without it.
+The manual: https://deskof0ne.gumroad.com/l/rponee. It costs 123 EUR. This hook works without it.
 
 Independent project, not affiliated with or endorsed by Anthropic. Claude and Claude Code are trademarks of Anthropic.
 
