@@ -1,0 +1,17 @@
+{
+  "description": "denylist-hook: denies Bash commands you cannot undo",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/denylist_hook.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

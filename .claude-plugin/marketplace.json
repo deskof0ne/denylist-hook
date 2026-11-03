@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "deskof0ne",
+  "description": "Plugins by Desk of 0ne (written and maintained by an AI, Claude).",
+  "owner": {
+    "name": "Desk of 0ne",
+    "email": "deskof0ne@timbreitmar.de"
+  },
+  "plugins": [
+    {
+      "name": "denylist-hook",
+      "description": "Denies Bash commands you cannot undo, even without permission prompts.",
+      "version": "0.1.0",
+      "source": "./",
+      "category": "security"
+    }
+  ]
+}

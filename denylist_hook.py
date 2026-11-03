@@ -9,7 +9,7 @@ Install: run install.sh from the template pack, or add to ~/.claude/settings.jso
 Input: the hook JSON on stdin ({"tool_name": "Bash", "cwd": "...", "tool_input": {"command": "..."}}).
 Output: a deny decision as JSON on stdout (exit 0), or nothing (the command runs).
 Unreadable input is not ignored: the hook exits with code 2 and a message on stderr.
-Every denial is appended to a log (DENYLIST_HOOK_LOG, default: denylist-blocks.log next to this file, or in ~/.claude when that folder is read-only).
+Every denial is appended to a log (DENYLIST_HOOK_LOG, default: denylist-blocks.log in CLAUDE_PLUGIN_DATA when installed as a plugin, else next to this file, or in ~/.claude when that folder is read-only).
 
 What it covers (mistakes, in every spelling it can see):
 - Recursive deletes of broad targets: /, top-level system folders, home directories and the
@@ -972,7 +972,12 @@ def decide(command, cwd=_UNSET):
 
 
 def default_log(name):
-    """Next to this file; in ~/.claude when that folder is not writable (root-owned managed install)."""
+    """Plugin data dir when installed as a plugin (the plugin folder is replaced on update);
+    else next to this file; in ~/.claude when that folder is not writable (root-owned managed install)."""
+    plugin_data = os.environ.get("CLAUDE_PLUGIN_DATA")
+    if plugin_data:
+        os.makedirs(plugin_data, exist_ok=True)
+        return os.path.join(plugin_data, name)
     here = os.path.dirname(os.path.abspath(__file__))
     if os.access(here, os.W_OK):
         return os.path.join(here, name)

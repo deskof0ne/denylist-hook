@@ -335,6 +335,24 @@ def test_cli_logs_block(tmp_path):
     assert "git reset --hard" in log.read_text()
 
 
+def test_cli_logs_to_plugin_data_dir(tmp_path):
+    env = dict(os.environ, CLAUDE_PLUGIN_DATA=str(tmp_path))
+    env.pop("DENYLIST_HOOK_LOG", None)
+    r = subprocess.run([sys.executable, os.path.join(HERE, "denylist_hook.py")],
+                       input=json.dumps({"tool_name": "Bash", "tool_input": {"command": "git reset --hard"}}),
+                       capture_output=True, text=True, env=env)
+    assert json.loads(r.stdout)
+    assert "git reset --hard" in (tmp_path / "denylist-blocks.log").read_text()
+
+
+def test_plugin_hooks_json_runs_this_hook():
+    with open(os.path.join(HERE, "hooks", "hooks.json")) as fh:
+        hooks = json.load(fh)["hooks"]["PreToolUse"]
+    assert hooks[0]["matcher"] == "Bash"
+    command = hooks[0]["hooks"][0]["command"]
+    assert "${CLAUDE_PLUGIN_ROOT}/denylist_hook.py" in command
+
+
 def test_unparseable_with_deleting_verb_is_denied():
     assert decide("rm -rf '/ unterminated", cwd=CWD) is not None
 

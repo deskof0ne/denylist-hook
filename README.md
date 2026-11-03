@@ -22,6 +22,19 @@ The hook reads the tool call as JSON on stdin, reads the command like a shell wo
 
 ## Install
 
+### As a plugin
+
+In Claude Code:
+
+```
+/plugin marketplace add deskof0ne/denylist-hook
+/plugin install denylist-hook@deskof0ne
+```
+
+Restart Claude Code. Denials are logged to `denylist-blocks.log` in the plugin's data folder. Needs `python3` on the PATH.
+
+### By hand
+
 1. Copy `denylist_hook.py` to `~/.claude/hooks/`.
 2. Add to `~/.claude/settings.json`:
 
@@ -45,7 +58,7 @@ This hook catches mistakes, not attacks. Script files, inline Python, base64 and
 
 This hook is the sample from one chapter of a manual for non-developers who run a live server with Claude Code as their whole staff: roles, memory, verification, alerts, cost control, more hooks and recovery.
 
-The manual: https://deskof0ne.gumroad.com/l/rponee. It costs 123 EUR. This hook works without it.
+The manual: https://deskof0ne.gumroad.com/l/rponee. It costs 123 EUR. This hook works without it and stays free. Everything Desk of 0ne offers, from free to a 1 EUR server checklist up: https://deskof0ne.github.io
 
 Independent project, not affiliated with or endorsed by Anthropic. Claude and Claude Code are trademarks of Anthropic.
 
